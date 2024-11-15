@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Music Player</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://kit.fontawesome.com/669895ba21.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="music-player">
+      <nav>
+        <div class="circle">
+          <i class="fa-solid fa-angle-left"></i>
+        </div>
+        <div class="circle">
+          <i class="fa-solid fa-bars"></i>
+        </div>
+      </nav>
+      <img src="media/image.png" class="song-img">
+      <h1>dust collector</h1>
+      <p>Yg Hypnos</p>
+      <audio  id="song">
+        <source src="media/dust collector (intro loop & slowed).mp3" type="audio/mpeg">
+      </audio>
+      <input type="range" value="0" id="progress">
+
+      <div class="controls">
+        <div><i class="fa-solid fa-backward"></i></div>
+        <div onclick="playPause()"><i class="fa-solid fa-play" id="ctrlIcon"></i></div>
+        <div><i class="fa-solid fa-forward"></i></div>
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+
+let progress = document.getElementById('progress');
+let song = document.getElementById('song');
+let ctrlIcon = document.getElementById('ctrlIcon');
+
+// Aktualizacja suwaka na podstawie odtwarzanego audio
+song.onloadedmetadata = function () {
+  progress.max = song.duration;
+  progress.value = 0; // Suwak zaczyna od początku
+};
+
+song.addEventListener('timeupdate', () => {
+  progress.value = song.currentTime;
+});
+
+// Funkcja Play/Pause
+function playPause() {
+  if (ctrlIcon.classList.contains('fa-pause')) {
+    song.pause();
+    ctrlIcon.classList.remove('fa-pause');
+    ctrlIcon.classList.add('fa-play');
+  } else {
+    song.play();
+    ctrlIcon.classList.add('fa-pause');
+    ctrlIcon.classList.remove('fa-play');
+  }
+}
+
+
+progress.onchange = function(){
+  song.play();
+  song.currentTime = progress.value;
+  ctrlIcon.classList.add("fa-pause");
+  ctrlIcon.classList.remove("fa-play");
+}
+
+// Cofanie o 10 sekund
+document.querySelector('fa-backward').addEventListener('click', () => {
+  song.currentTime = Math.max(0, song.currentTime - 10);
+});
+
+  </script>
+  
+</body>
+</html>
