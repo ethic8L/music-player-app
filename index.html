@@ -41,7 +41,7 @@ let progress = document.getElementById('progress');
 let song = document.getElementById('song');
 let ctrlIcon = document.getElementById('ctrlIcon');
 
-// Aktualizacja suwaka na podstawie odtwarzanego audio
+
 song.onloadedmetadata = function () {
   progress.max = song.duration;
   progress.value = 0; // Suwak zaczyna od początku
@@ -51,7 +51,7 @@ song.addEventListener('timeupdate', () => {
   progress.value = song.currentTime;
 });
 
-// Funkcja Play/Pause
+
 function playPause() {
   if (ctrlIcon.classList.contains('fa-pause')) {
     song.pause();
@@ -72,10 +72,7 @@ progress.onchange = function(){
   ctrlIcon.classList.remove("fa-play");
 }
 
-// Cofanie o 10 sekund
-document.querySelector('fa-backward').addEventListener('click', () => {
-  song.currentTime = Math.max(0, song.currentTime - 10);
-});
+
 
   </script>
   
